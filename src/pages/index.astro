@@ -1,0 +1,38 @@
+---
+// 1. (后端逻辑) 从 D1 数据库获取文章
+let posts = [];
+if (Astro.locals.runtime) {
+  // 生产环境或 Wrangler 本地预览环境
+  const db = Astro.locals.runtime.env.DB;
+  const result = await db.prepare('SELECT * FROM posts ORDER BY created_at DESC').all();
+  posts = result.results;
+} else {
+  // 普通 npm run dev 模式下可能拿不到 runtime，这里做个空数据兜底
+  // 建议开发时使用 npm run preview 或 wrangler dev
+  console.log('Running in dev mode without local runtime');
+}
+---
+
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8" />
+    <title>我的 Astro 博客</title>
+  </head>
+  <body>
+    <h1>欢迎来到我的博客</h1>
+    <a href="/admin">去发文章</a>
+    <hr />
+
+    <ul>
+      {posts.map((post: any) => (
+        <li>
+          <h2>{post.title}</h2>
+          <p>{post.content}</p>
+          <small>{new Date(post.created_at).toLocaleString()}</small>
+        </li>
+      ))}
+    </ul>
+
+    {posts.length === 0 && <p>暂时还没有文章，快去发布一篇吧！</p>}
+  </body>
+</html>
