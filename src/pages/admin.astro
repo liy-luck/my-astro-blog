@@ -1,5 +1,8 @@
 ---
-// 逻辑部分保持不变
+import Layout from '../layouts/Layout.astro';
+
+let errorMessage = '';
+
 if (Astro.request.method === "POST") {
   const formData = await Astro.request.formData();
   const title = formData.get("title");
@@ -15,36 +18,101 @@ if (Astro.request.method === "POST") {
       return Astro.redirect("/");
     }
   } else {
-    console.error("密码错误");
+    errorMessage = "密码错误，请重新输入";
   }
 }
 ---
 
-<!-- ▼▼▼▼▼▼▼ 关键是下面这部分 HTML 结构 ▼▼▼▼▼▼▼ -->
-<html lang="zh-cn">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>后台管理</title>
-  </head>
-  <body style="padding: 20px; font-family: sans-serif;">
+<Layout title="管理后台 - 发布文章">
+  <section class="max-w-2xl mx-auto">
+    <!-- 页面标题 -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold tracking-tight text-gray-900">
+        发布新文章
+      </h1>
+      <p class="mt-2 text-gray-500">
+        填写以下表单来发布一篇新文章
+      </p>
+    </div>
 
-    <h1>发布新文章</h1>
+    <!-- 错误提示 -->
+    {errorMessage && (
+      <div class="mb-6 rounded-lg border border-red-200 bg-red-50 p-4">
+        <div class="flex items-center gap-3">
+          <svg class="h-5 w-5 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p class="text-sm text-red-700">{errorMessage}</p>
+        </div>
+      </div>
+    )}
 
-    <form method="POST">
-      <div style="margin-bottom: 10px;">
-        <input type="text" name="title" placeholder="文章标题" required style="width: 300px; display: block; padding: 5px;" />
+    <!-- 发布表单 -->
+    <form method="POST" class="space-y-6">
+      <!-- 标题输入 -->
+      <div>
+        <label for="title" class="block text-sm font-medium text-gray-700 mb-2">
+          文章标题 <span class="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          required
+          placeholder="输入文章标题..."
+          class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 shadow-sm transition-all focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+        />
       </div>
-      <div style="margin-bottom: 10px;">
-        <textarea name="content" placeholder="文章内容" required style="width: 300px; height: 100px; display: block; padding: 5px;"></textarea>
+
+      <!-- 内容输入 -->
+      <div>
+        <label for="content" class="block text-sm font-medium text-gray-700 mb-2">
+          文章内容 <span class="text-red-500">*</span>
+        </label>
+        <textarea
+          id="content"
+          name="content"
+          required
+          rows="8"
+          placeholder="输入文章内容..."
+          class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 shadow-sm transition-all focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 resize-y min-h-[200px]"
+        ></textarea>
       </div>
-      <div style="margin-bottom: 10px;">
-        <input type="password" name="password" placeholder="发布密码 (123456)" required style="width: 300px; display: block; padding: 5px;" />
+
+      <!-- 密码输入 -->
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+          发布密码 <span class="text-red-500">*</span>
+        </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+          placeholder="输入发布密码"
+          class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 shadow-sm transition-all focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+        />
+        <p class="mt-1.5 text-xs text-gray-400">需要正确的密码才能发布文章</p>
       </div>
-      <button type="submit" style="padding: 5px 15px; cursor: pointer;">发布</button>
+
+      <!-- 操作按钮 -->
+      <div class="flex items-center gap-4 pt-4">
+        <button
+          type="submit"
+          class="inline-flex items-center gap-2 rounded-lg bg-primary-600 px-6 py-3 text-sm font-medium text-white shadow-sm transition-all hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 active:scale-[0.98]"
+        >
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+          </svg>
+          发布文章
+        </button>
+        <a
+          href="/"
+          class="inline-flex items-center rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+        >
+          取消
+        </a>
+      </div>
     </form>
-
-    <br />
-    <a href="/">返回首页</a>
-  </body>
-</html>
+  </section>
+</Layout>

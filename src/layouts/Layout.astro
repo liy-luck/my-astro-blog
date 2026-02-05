@@ -1,23 +1,61 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = '一个简约的个人博客' } = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen bg-white text-gray-800 antialiased flex flex-col">
+    <!-- 导航栏 -->
+    <header class="sticky top-0 z-50 border-b border-gray-100 bg-white/80 backdrop-blur-md">
+      <nav class="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
+        <a href="/" class="text-xl font-semibold tracking-tight text-gray-900 hover:text-primary-600 transition-colors">
+          我的博客
+        </a>
+        <div class="flex items-center gap-6">
+          <a href="/" class="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+            首页
+          </a>
+          <a href="/admin" class="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+            管理
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="mx-auto max-w-4xl w-full px-6 py-12 flex-1">
+      <slot />
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="border-t border-gray-100 mt-auto">
+      <div class="mx-auto max-w-4xl px-6 py-8">
+        <p class="text-center text-sm text-gray-400">
+          &copy; {new Date().getFullYear()} 我的博客. 使用 Astro 构建.
+        </p>
+      </div>
+    </footer>
+  </body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+<style is:global>
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
 </style>
