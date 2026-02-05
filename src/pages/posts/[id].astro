@@ -1,0 +1,63 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const { id } = Astro.params;
+
+let post = null;
+if (Astro.locals.runtime) {
+  const db = Astro.locals.runtime.env.DB;
+  post = await db.prepare('SELECT * FROM posts WHERE id = ?').bind(id).first();
+}
+
+if (!post) {
+  return Astro.redirect('/');
+}
+---
+
+<Layout title={post.title}>
+  <article class="max-w-3xl mx-auto">
+    <!-- 返回链接 -->
+    <a href="/" class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-primary-600 transition-colors mb-8">
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      返回首页
+    </a>
+
+    <!-- 文章头部 -->
+    <header class="mb-8">
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 mb-4">
+        {post.title}
+      </h1>
+      <div class="flex items-center gap-4 text-sm text-gray-500">
+        <time datetime={post.created_at}>
+          {new Date(post.created_at).toLocaleDateString('zh-CN', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })}
+        </time>
+      </div>
+    </header>
+
+    <!-- 分隔线 -->
+    <hr class="border-gray-100 mb-8" />
+
+    <!-- 文章内容 -->
+    <div class="prose prose-gray max-w-none">
+      <div class="text-gray-700 leading-relaxed whitespace-pre-wrap text-base">
+        {post.content}
+      </div>
+    </div>
+
+    <!-- 底部导航 -->
+    <footer class="mt-12 pt-8 border-t border-gray-100">
+      <a href="/" class="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium transition-colors">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        返回文章列表
+      </a>
+    </footer>
+  </article>
+</Layout>
