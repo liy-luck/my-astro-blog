@@ -25,7 +25,7 @@ const primaryLabel = hasPosts ? '阅读最新' : '开始写作';
 ---
 
 <Layout title="我的博客 - 首页">
-  <section class="relative isolate overflow-hidden rounded-[32px] border border-[color:var(--line)] bg-white/70 px-6 py-10 shadow-[0_40px_120px_-80px_rgba(15,118,110,0.55)] sm:px-10 sm:py-14">
+  <section class="relative isolate overflow-hidden rounded-[32px] border border-[color:var(--line)] bg-[color:var(--surface)] px-6 py-10 shadow-[0_40px_120px_-80px_rgba(15,118,110,0.55)] sm:px-10 sm:py-14">
     <div class="pointer-events-none absolute -right-20 -top-28 h-64 w-64 rounded-full bg-[radial-gradient(circle_at_top,_rgba(251,191,36,0.45),_transparent_70%)] blur-3xl"></div>
     <div class="pointer-events-none absolute -left-16 -bottom-28 h-64 w-64 rounded-full bg-[radial-gradient(circle_at_center,_rgba(45,212,191,0.35),_transparent_70%)] blur-3xl"></div>
     <div class="relative z-10 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
@@ -38,9 +38,9 @@ const primaryLabel = hasPosts ? '阅读最新' : '开始写作';
           记录生活、分享技术、沉淀思考，用更有温度的方式整理成长轨迹。
         </p>
         <div class="anim-fade-up anim-delay-2 flex flex-wrap gap-2">
-          <span class="rounded-full border border-[color:var(--line)] bg-white/70 px-3 py-1 text-xs text-[color:var(--muted)]">技术笔记</span>
-          <span class="rounded-full border border-[color:var(--line)] bg-white/70 px-3 py-1 text-xs text-[color:var(--muted)]">生活随笔</span>
-          <span class="rounded-full border border-[color:var(--line)] bg-white/70 px-3 py-1 text-xs text-[color:var(--muted)]">项目复盘</span>
+          <span class="rounded-full border border-[color:var(--line)] bg-[color:var(--surface-soft)] px-3 py-1 text-xs text-[color:var(--muted)]">技术笔记</span>
+          <span class="rounded-full border border-[color:var(--line)] bg-[color:var(--surface-soft)] px-3 py-1 text-xs text-[color:var(--muted)]">生活随笔</span>
+          <span class="rounded-full border border-[color:var(--line)] bg-[color:var(--surface-soft)] px-3 py-1 text-xs text-[color:var(--muted)]">项目复盘</span>
         </div>
         <div class="anim-fade-up anim-delay-3 flex flex-wrap gap-3">
           <a
@@ -52,7 +52,7 @@ const primaryLabel = hasPosts ? '阅读最新' : '开始写作';
           </a>
           <a
             href="/admin"
-            class="inline-flex items-center gap-2 rounded-full border border-[color:var(--line)] bg-white/70 px-5 py-2.5 text-sm font-medium text-[color:var(--ink)] transition hover:border-primary-300 hover:text-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40"
+            class="inline-flex items-center gap-2 rounded-full border border-[color:var(--line)] bg-[color:var(--surface)] px-5 py-2.5 text-sm font-medium text-[color:var(--ink)] transition hover:border-primary-300 hover:text-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40"
           >
             发布文章
           </a>
@@ -70,7 +70,7 @@ const primaryLabel = hasPosts ? '阅读最新' : '开始写作';
       </div>
       <div class="grid gap-4 anim-fade-in anim-delay-2">
         {featuredPost ? (
-          <article class="group flex h-full flex-col justify-between rounded-3xl border border-[color:var(--line)] bg-white/80 p-6 shadow-[0_26px_70px_-50px_rgba(30,18,9,0.55)] backdrop-blur">
+          <article class="group flex h-full flex-col justify-between rounded-3xl border border-[color:var(--line)] bg-[color:var(--surface-strong)] p-6 shadow-[0_26px_70px_-50px_rgba(30,18,9,0.55)] backdrop-blur">
             <div class="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-[color:var(--muted)]">
               <span>最新文章</span>
               <span>{formatDate(featuredPost.created_at)}</span>
@@ -89,7 +89,7 @@ const primaryLabel = hasPosts ? '阅读最新' : '开始写作';
             </a>
           </article>
         ) : (
-          <div class="flex h-full flex-col items-center justify-center rounded-3xl border border-[color:var(--line)] bg-white/80 p-6 text-center shadow-[0_24px_70px_-50px_rgba(30,18,9,0.45)]">
+          <div class="flex h-full flex-col items-center justify-center rounded-3xl border border-[color:var(--line)] bg-[color:var(--surface-strong)] p-6 text-center shadow-[0_24px_70px_-50px_rgba(30,18,9,0.45)]">
             <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[color:var(--accent-soft)] text-[color:var(--accent)]">
               <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M12 6v12m6-6H6" />
@@ -105,7 +105,7 @@ const primaryLabel = hasPosts ? '阅读最新' : '开始写作';
             </a>
           </div>
         )}
-        <div class="rounded-3xl border border-[color:var(--line)] bg-white/70 p-5 text-sm text-[color:var(--muted)]">
+        <div class="rounded-3xl border border-[color:var(--line)] bg-[color:var(--surface)] p-5 text-sm text-[color:var(--muted)]">
           <p class="text-xs uppercase tracking-[0.3em] text-[color:var(--muted)]">写作节奏</p>
           <p class="mt-3 font-display text-lg text-[color:var(--ink)]">慢一点，也更稳。</p>
           <p class="mt-2">记录技术、生活与思考的交汇点，每周至少一次小结。</p>
@@ -131,7 +131,7 @@ const primaryLabel = hasPosts ? '阅读最新' : '开始写作';
                 href={`/posts/${post.id}`}
                 class="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40"
               >
-                <article class="flex h-full flex-col justify-between rounded-3xl border border-[color:var(--line)] bg-white/75 p-6 shadow-[0_24px_60px_-48px_rgba(30,18,9,0.6)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_80px_-50px_rgba(15,118,110,0.45)]">
+                <article class="flex h-full flex-col justify-between rounded-3xl border border-[color:var(--line)] bg-[color:var(--surface)] p-6 shadow-[0_24px_60px_-48px_rgba(30,18,9,0.6)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_80px_-50px_rgba(15,118,110,0.45)]">
                   <div>
                     <p class="text-xs uppercase tracking-[0.3em] text-[color:var(--muted)]">文章</p>
                     <h3 class="mt-3 font-display text-xl text-[color:var(--ink)] transition-colors group-hover:text-primary-700">
@@ -153,13 +153,13 @@ const primaryLabel = hasPosts ? '阅读最新' : '开始写作';
             ))}
           </div>
         ) : (
-          <div class="mt-6 rounded-2xl border border-dashed border-[color:var(--line)] bg-white/60 px-6 py-8 text-sm text-[color:var(--muted)]">
+          <div class="mt-6 rounded-2xl border border-dashed border-[color:var(--line)] bg-[color:var(--surface-soft)] px-6 py-8 text-sm text-[color:var(--muted)]">
             更多文章正在路上，先读读上面的最新内容吧。
           </div>
         )}
       </>
     ) : (
-      <div class="mt-6 rounded-3xl border border-dashed border-[color:var(--line)] bg-white/60 px-6 py-10 text-center">
+      <div class="mt-6 rounded-3xl border border-dashed border-[color:var(--line)] bg-[color:var(--surface-soft)] px-6 py-10 text-center">
         <h3 class="font-display text-2xl text-[color:var(--ink)]">这里还空着</h3>
         <p class="mt-2 text-sm text-[color:var(--muted)]">从一个小故事开始，把你的思考写下来。</p>
         <a
